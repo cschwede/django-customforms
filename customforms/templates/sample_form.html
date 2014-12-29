@@ -1,0 +1,11 @@
+<html>
+<body>
+<table>
+    <form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <tr><th colspan="2"><input type="submit"></th></tr>
+</form>
+</table>
+</body>
+</html>
