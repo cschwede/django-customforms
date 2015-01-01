@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from django.db import models
 
@@ -14,6 +15,8 @@ class Form(models.Model):
     class Meta:
         ordering = ('title', )
 
+    def get_absolute_url(self):
+        return reverse('customforms.views.view_form', args=[str(self.id)])
 
 class Question(models.Model):
     form = models.ForeignKey(Form)
@@ -36,6 +39,9 @@ class Question(models.Model):
 
     class Meta:
         ordering = ('form', 'position', )
+
+    def get_absolute_url(self):
+        return reverse('customforms.views.view_form', args=[str(self.form.id)])
 
 
 class Choice(models.Model):
