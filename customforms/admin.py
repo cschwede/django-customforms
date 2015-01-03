@@ -16,7 +16,8 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ('form', )
     inlines = [ChoiceInline]
     save_on_top = True
-    fields = ('title', 'form', 'help_text', 'question_type', 'required')
+    fields = (
+        'title', 'form', 'help_text', 'question_type', 'required', 'position')
 
 
 class FormAdmin(admin.ModelAdmin):
