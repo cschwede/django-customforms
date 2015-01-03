@@ -20,7 +20,7 @@ def view_form(request, formid):
             data = {}
             for question_id, answer in form.cleaned_data.items():
                 question = Question.objects.get(id=question_id)
-                data[question.title] = answer.title
+                data[unicode(question)] = unicode(answer)
             return HttpResponse(str(data))
 
     return render_to_response('sample_form.html', {

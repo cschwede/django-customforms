@@ -54,3 +54,6 @@ class Choice(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.title, )
+
+    def __repr__(self):
+        return u'%s' % (self.title, )
