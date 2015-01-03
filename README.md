@@ -12,24 +12,24 @@ Quick demo
 
 1. Create a virtualenv for this app::
 
-    virtualenv demoenv
-    source demoenv/bin/activate
+        virtualenv demoenv
+        source demoenv/bin/activate
 
 2. Install customforms:
 
-    pip install https://github.com/cschwede/django-customforms/zipball/master
+        pip install https://github.com/cschwede/django-customforms/zipball/master
 
 3. Create a new Django project::
 
-    django-admin startproject demo
-    cd demo
+        django-admin startproject demo
+        cd demo
 
 4. Add "customforms" to your INSTALLED_APPS setting in demo/settings.py like this::
 
-    INSTALLED_APPS = (
-        ...,
-        'customforms',
-    )
+        INSTALLED_APPS = (
+            ...,
+            'customforms',
+        )
 
 5. Include the customforms URLconf in demo/urls.py like this::
 
@@ -37,11 +37,11 @@ Quick demo
 
 6. Create the required DB tables::
 
-    python manage.py syncdb
+        python manage.py syncdb
 
 8. Start the development server::
 
-    python manage runserver
+        python manage runserver
 
 9. Visit http://127.0.0.1:8000/admin/, add a new form and questions and use the
    "View on site" links to see the form in action.
