@@ -5,17 +5,14 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
-from customforms.models import Form, Question
+from customforms.models import Question
 from customforms.forms import DynamicForm
 
 
 def view_form(request, formid):
-    db_form = Form.objects.get(id=formid)
-    questions = db_form.question_set.all()
-    form = DynamicForm(questions)
-
+    form = DynamicForm(formid)
     if request.method == 'POST':
-        form = DynamicForm(questions, request.POST)
+        form = DynamicForm(formid, request.POST)
         if form.is_valid():
             data = {}
             for question_id, answer in form.cleaned_data.items():

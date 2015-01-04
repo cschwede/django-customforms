@@ -3,11 +3,15 @@
 from collections import OrderedDict
 from django import forms
 
+from customforms.models import Form
+
 
 class DynamicForm(forms.BaseForm):
-    def __init__(self, questions, *args, **kwargs):
+    def __init__(self, formid, *args, **kwargs):
+        db_form = Form.objects.get(id=formid)
+        self.questions = db_form.question_set.all()
         fields = OrderedDict()
-        for question in questions:
+        for question in self.questions:
             fields[str(question.id)] = self._get_field(question)
         self.base_fields = fields
         super(DynamicForm, self).__init__(*args, **kwargs)
