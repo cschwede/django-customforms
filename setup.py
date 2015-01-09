@@ -7,18 +7,18 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name = 'django-customforms',
-    version = '0.1',
-    packages = ['customforms'],
-    include_package_data = True,
-    license = 'Apache License',
-    description = 'Database driven Django forms app',
-    long_description = README,
-    url = 'https://github.com/cschwede/django-customforms',
-    author = 'Christian Schwede',
-    author_email = 'info@cschwede.de',
+    name='django-customforms',
+    version='0.1',
+    packages=['customforms'],
+    include_package_data=True,
+    license='Apache License',
+    description='Database driven Django forms app',
+    long_description=README,
+    url='https://github.com/cschwede/django-customforms',
+    author='Christian Schwede',
+    author_email='info@cschwede.de',
     zip_safe=False,
-    classifiers = [
+    classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',

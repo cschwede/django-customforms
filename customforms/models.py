@@ -18,6 +18,7 @@ class Form(models.Model):
     def get_absolute_url(self):
         return reverse('customforms.views.view_form', args=[str(self.id)])
 
+
 class Question(models.Model):
     form = models.ForeignKey(Form)
     title = models.CharField(

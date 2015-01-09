@@ -3,7 +3,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'fake'
 
-INSTALLED_APPS = ( 'customforms',)
+INSTALLED_APPS = ('customforms',)
 
 DATABASES = {
     'default': {

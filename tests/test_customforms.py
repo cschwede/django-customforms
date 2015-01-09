@@ -14,13 +14,13 @@ class DynamicFormTests(TestCase):
 
         form = Form.objects.create(id=1, title='Sample Form')
 
-        question = Question.objects.create(title='Question',
-                                     question_type='S',
-                                     form=form,
-                                     position=0)
+        question = Question.objects.create(
+            title='Question', question_type='S', form=form, position=0)
 
-        choice1 = Choice.objects.create(title='Yes', question=question, position=0)
-        choice2 = Choice.objects.create(title='No', question=question, position=1)
+        choice1 = Choice.objects.create(
+            title='Yes', question=question, position=0)
+        choice2 = Choice.objects.create(
+            title='No', question=question, position=1)
 
         form = DynamicForm(1)
         self.assertFalse(form.is_valid())
@@ -40,7 +40,7 @@ class DynamicFormTests(TestCase):
         form_data = {'1': '3'}
         form = DynamicForm(1, data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertTrue(form._errors.has_key('1'))
+        self.assertTrue('1' in form._errors)
         self.assertEqual(form.cleaned_data, {})
 
     def test_view(self):
