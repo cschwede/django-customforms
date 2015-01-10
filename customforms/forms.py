@@ -41,3 +41,12 @@ class DynamicForm(forms.BaseForm):
         formfield_class, optional_kwargs = lookup.get(question.question_type)
         kwargs = dict(default_kwargs.items() + optional_kwargs.items())
         return formfield_class(**kwargs)
+
+    def full_clean(self, *args, **kwargs):
+        super(DynamicForm, self).full_clean(*args, **kwargs)
+        if hasattr(self, 'cleaned_data'):
+            data = OrderedDict()
+            for question in self.questions:
+                answer = self.cleaned_data.get(str(question.id))
+                data[unicode(question)] = unicode(answer)
+            self.cleaned_data = data

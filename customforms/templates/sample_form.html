@@ -1,11 +1,15 @@
 <html>
 <body>
+{% if not data %}
 <table>
     <form method="POST">
     {% csrf_token %}
     {{form}}
     <tr><th colspan="2"><input type="submit"></th></tr>
-</form>
+    </form>
 </table>
+{% else %}
+{{ data }}
+{% endif %}
 </body>
 </html>

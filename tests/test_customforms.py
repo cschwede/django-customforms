@@ -1,4 +1,6 @@
 """ Tests for customforms """
+from collections import OrderedDict
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -17,10 +19,8 @@ class DynamicFormTests(TestCase):
         question = Question.objects.create(
             title='Question', question_type='S', form=form, position=0)
 
-        choice1 = Choice.objects.create(
-            title='Yes', question=question, position=0)
-        choice2 = Choice.objects.create(
-            title='No', question=question, position=1)
+        Choice.objects.create(title='Yes', question=question, position=0)
+        Choice.objects.create(title='No', question=question, position=1)
 
         form = DynamicForm(1)
         self.assertFalse(form.is_valid())
@@ -28,20 +28,21 @@ class DynamicFormTests(TestCase):
         form_data = {'1': '1'}
         form = DynamicForm(1, data=form_data)
         self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data.get(str(question.id)), choice1)
+        self.assertEqual(form.cleaned_data.get('Question'), 'Yes')
         self.assertEqual(form.errors, {})
 
         form_data = {'1': '2'}
         form = DynamicForm(1, data=form_data)
         self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data.get(str(question.id)), choice2)
+        self.assertEqual(form.cleaned_data.get('Question'), 'No')
         self.assertEqual(form.errors, {})
 
         form_data = {'1': '3'}
         form = DynamicForm(1, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertTrue('1' in form._errors)
-        self.assertEqual(form.cleaned_data, {})
+        self.assertEqual(
+            OrderedDict([(u'Question', u'None')]), form.cleaned_data)
 
     def test_view(self):
         form = Form.objects.create(id=1, title='Sample Form')
@@ -59,4 +60,5 @@ class DynamicFormTests(TestCase):
 
         response = self.client.post(url, {'1': ['1', '2']})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual("{u'Question': u'[Yes, No]'}", response.content)
+        self.assertEqual(OrderedDict([(u'Question', u'[Yes, No]')]),
+                         response.context.get('data'))
