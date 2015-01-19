@@ -30,12 +30,16 @@ class DynamicFormTests(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data.get('Question'), 'Yes')
         self.assertEqual(form.errors, {})
+        self.assertTrue(isinstance(form.extended_cleaned_data[0][0], Question))
+        self.assertTrue(isinstance(form.extended_cleaned_data[0][1], Choice))
 
         form_data = {'1': '2'}
         form = DynamicForm(1, data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data.get('Question'), 'No')
         self.assertEqual(form.errors, {})
+        self.assertTrue(isinstance(form.extended_cleaned_data[0][0], Question))
+        self.assertTrue(isinstance(form.extended_cleaned_data[0][1], Choice))
 
         form_data = {'1': '3'}
         form = DynamicForm(1, data=form_data)
